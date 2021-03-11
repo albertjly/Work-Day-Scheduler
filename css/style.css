@@ -1,0 +1,34 @@
+.media {
+  height: 110px;
+}
+.media .media-left {
+  height: 100%;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+.media .media-body {
+  border: 1px solid #000;
+  height: 100%;
+}
+.media .media-body .title {
+  font-size: 22px;
+  font-weight: bolder;
+}
+.media .media-body textarea {
+  width: 95%;
+  height: 3.5rem;
+  padding: 0.3rem;
+}
+.media .media-body .content {
+  width: 80%;
+  text-overflow: ellipsis;
+}
+.media .media-right {
+  height: 100%;
+  background-color: cyan;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+  cursor: pointer;
+  border: 1px dotted darkcyan;
+}
+/*# sourceMappingURL=style.css.map */
