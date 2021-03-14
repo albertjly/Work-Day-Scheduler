@@ -1,11 +1,66 @@
 $(function () {
+    // 1. insert currentDay to html
+    $('#currentDay').text(moment().format('LLLL'));
+
+    // 2. save toDoList to localStorage
+    var toDoList = JSON.parse(localStorage.getItem('todolist'));
+
+
+    // click and change content
     var mediaBody = $('.media-body');
-    // title
-    clickAndOutFocusText(mediaBody, '.title', "<input>", 'title mt-2 mb-2', 'input', "title mt-3 mb-2");
+
+    mediaBody.on('click', function (event) {
+        event.preventDefault();
+
+        mediaBody.on('click', '.content', function () {
+            var text = $(this).text().trim();
+
+            // replace p element with a new input
+            var textInput = $('<textarea>')
+                .addClass('content')
+                .val(text);
+            $(this).replaceWith(textInput);
+
+            // auto focus new element
+            textInput.trigger("focus");
+        });
+
+        // editable field was un-focused
+        mediaBody.on("blur", 'textarea', function () {
+            // get current value of textarea
+            var text = $(this).val();
+
+            $(this).text = text;
+
+            var contentP = $("<p>")
+                .addClass('content')
+                .text(text);
+
+            $(this).replaceWith(contentP);
+        });
+
+        // get to-do value from the <p> and store into localstorage
+        var $todo = $('.media-body .content').val();
+        console.log($todo);
+
+        toDoList.push($todo);
+
+        // renderTodos(toDoList);
+        localStorage.setItem('todolist', JSON.stringify(toDoList));
+    });
+
+
+
+
+
+
+
+   /* // title
+    clickAndOutFocusText(mediaBody, '.title', "<input>", 'title col-12', 'input', "title mt-2 col-12");
 
 
     // content
-    clickAndOutFocusText(mediaBody, '.content', '<textarea>', '', 'textarea', 'content');
+    clickAndOutFocusText(mediaBody, '.content', '<textarea>', 'content col-12', 'textarea', 'content col-12');*/
 
 
     /**
@@ -18,7 +73,8 @@ $(function () {
      * @param {String}className2
      */
     function clickAndOutFocusText($parent, selector1, creatTag, className1, selector2, className2) {
-        $parent.on('click', selector1, function () {
+        $parent.on('click', selector1, function (event) {
+            event.preventDefault();
             // get current text of p element
             var text = $(this).text().trim();
 
@@ -47,5 +103,9 @@ $(function () {
         });
     }
 
+    renderTodos(toDoList);
 
+    function renderTodos(todolist) {
+
+    }
 });

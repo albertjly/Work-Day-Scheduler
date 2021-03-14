@@ -1,35 +1,62 @@
+.container {
+  max-width: 1200px;
+}
+textarea,
+input {
+  outline: none;
+}
+textarea {
+  background-color: rgba(0, 130, 199, 0.1);
+}
+input {
+  background-color: rgba(0, 130, 199, 0.1);
+  border: 1px solid rgba(0, 62, 202, 0.8);
+  box-shadow: 2px 2px 2px rgba(0, 62, 202, 0.2);
+  border-radius: 5px;
+  padding-left: 10px;
+}
 .media {
-  height: 110px;
+  height: 80px;
 }
 .media .media-left {
   height: 100%;
-  border-top: 1px solid #000;
-  border-bottom: 1px solid #000;
-}
-.media .media-left .row {
-  text-align: center;
+  border-top: 2px solid rgba(0, 62, 202, 0.2);
+  border-bottom: 2px solid rgba(0, 62, 202, 0.2);
   width: 100%;
 }
-.media .media-left .row p {
-  margin: 0 auto;
+.media .media-left i {
   font-weight: bolder;
+  color: lightgrey;
 }
 .media .media-body {
-  border: 1px solid #000;
+  border: 1px solid rgba(0, 62, 202, 0.5);
   height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  /*textarea{
+      //width: 100px;
+      width: 95%;
+      height: 3.5rem;
+      padding: 0.3rem;
+      //border-radius: 1rem;
+    }*/
+}
+.media .media-body p {
+  height: 100%;
+  width: 100%;
 }
 .media .media-body .title {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bolder;
 }
-.media .media-body textarea {
-  width: 95%;
-  height: 3.5rem;
-  padding: 0.3rem;
+.media .media-body input {
+  margin-top: 5px;
+  height: 32px;
 }
 .media .media-body .content {
-  width: 80%;
-  text-overflow: ellipsis;
+  width: 100%;
+}
+.media .media-body .content p {
+  font-size: 14px;
 }
 .media .media-right {
   height: 100%;
@@ -37,6 +64,31 @@
   border-top-right-radius: 15px;
   border-bottom-right-radius: 15px;
   cursor: pointer;
-  border: 1px dotted darkcyan;
+  border: 1px solid rgba(0, 62, 202, 0.5);
+  box-shadow: 1px 1px 3px rgba(0, 62, 202, 0.5);
 }
+.media .media-right .save-icon {
+  width: 20px;
+  height: 20px;
+  background: url("../images/unsave.png") no-repeat center center;
+  background-size: contain;
+}
+.media .media-right .save-icon:hover {
+  background: url("../images/save.png") no-repeat center center;
+  background-size: contain;
+}
+/*************max-width*************/
+@media screen and (max-width: 576px) {
+  .media-right,
+  .media-left {
+    height: 2rem !important;
+  }
+  .media {
+    margin-top: 4.1rem;
+  }
+  .media:first-child {
+    margin-top: 0;
+  }
+}
+/*************min-width*************/
 /*# sourceMappingURL=style.css.map */
