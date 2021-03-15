@@ -25,6 +25,7 @@ input {
   width: 100%;
 }
 .media .media-left .time {
+  font-size: 13px;
   font-weight: bolder;
   color: lightgrey;
 }

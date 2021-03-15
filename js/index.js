@@ -19,9 +19,8 @@ $(function () {
             .addClass('content')
             .val(text);
         $(this).replaceWith(textInput);
+        
 
-        $('.media').addEventlistener;
-       
         // auto focus new element
         textInput.trigger("focus");
 
@@ -38,15 +37,27 @@ $(function () {
             .text(text);
 
         $(this).replaceWith(contentP);
+        // console.log(contentP.text());
+        // console.log($(this).parents('.media'));
+        updateToDo($(this).text(), contentP.text());
     });
 
+    var updateToDo = function($time, $todo) {
+        var tempArr = [];
+
+        tempArr.push({
+            time: $time,
+            todo: $todo
+        });
+
+        console.log(tempArr);
+
+        saveToDos();
+    };
     
 
-    
-    
-    // console.log(toDoList);
-    $('.save-icon').on('click', function (event) {
-        
+    $('.save-icon').on('click', function () {
+
         var $todo = $(this).parents('.media').children('.media-body').children().text();
 
 
@@ -56,11 +67,13 @@ $(function () {
                 todo: $todo
             });
         }
-        
 
-        renderTodos(toDoList);
-        localStorage.setItem('todolist', JSON.stringify(toDoList));
+        saveToDos();
     });
+
+    function saveToDos() {
+        localStorage.setItem('todolist', JSON.stringify(toDoList));
+    }
 
 
     function renderTodos(toDoList) {
