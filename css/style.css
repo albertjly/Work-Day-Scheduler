@@ -24,7 +24,7 @@ input {
   border-bottom: 2px solid rgba(0, 62, 202, 0.2);
   width: 100%;
 }
-.media .media-left i {
+.media .media-left .time {
   font-weight: bolder;
   color: lightgrey;
 }
@@ -52,10 +52,11 @@ input {
   margin-top: 5px;
   height: 32px;
 }
-.media .media-body .content {
+.media .media-body textarea.content {
   width: 100%;
+  padding: 5px;
 }
-.media .media-body .content p {
+.media .media-body textarea.content p {
   font-size: 14px;
 }
 .media .media-right {
@@ -84,7 +85,7 @@ input {
     height: 2rem !important;
   }
   .media {
-    margin-top: 4.1rem;
+    margin-top: 5rem;
   }
   .media:first-child {
     margin-top: 0;

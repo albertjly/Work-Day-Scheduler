@@ -3,109 +3,74 @@ $(function () {
     $('#currentDay').text(moment().format('LLLL'));
 
     // 2. save toDoList to localStorage
-    var toDoList = JSON.parse(localStorage.getItem('todolist'));
+    var toDoList = JSON.parse(localStorage.getItem('todolist')) || [];
 
 
     // click and change content
     var mediaBody = $('.media-body');
-
-    mediaBody.on('click', function (event) {
+    
+    mediaBody.on('click', '.content', function (event) {
         event.preventDefault();
 
-        mediaBody.on('click', '.content', function () {
-            var text = $(this).text().trim();
+        var text = $(this).text().trim();
 
-            // replace p element with a new input
-            var textInput = $('<textarea>')
-                .addClass('content')
-                .val(text);
-            $(this).replaceWith(textInput);
+        // replace p element with a new input
+        var textInput = $('<textarea>')
+            .addClass('content')
+            .val(text);
+        $(this).replaceWith(textInput);
 
-            // auto focus new element
-            textInput.trigger("focus");
-        });
+        $('.media').addEventlistener;
+       
+        // auto focus new element
+        textInput.trigger("focus");
 
-        // editable field was un-focused
-        mediaBody.on("blur", 'textarea', function () {
-            // get current value of textarea
-            var text = $(this).val();
+    });
 
-            $(this).text = text;
+    mediaBody.on("blur", 'textarea', function () {
+        // get current value of textarea
+        var text = $(this).val();
 
-            var contentP = $("<p>")
-                .addClass('content')
-                .text(text);
+        $(this).text = text;
 
-            $(this).replaceWith(contentP);
-        });
+        var contentP = $("<p>")
+            .addClass('p-0 m-1 content')
+            .text(text);
 
-        // get to-do value from the <p> and store into localstorage
-        var $todo = $('.media-body .content').val();
-        console.log($todo);
+        $(this).replaceWith(contentP);
+    });
 
-        toDoList.push($todo);
+    
 
-        // renderTodos(toDoList);
+    
+    
+    // console.log(toDoList);
+    $('.save-icon').on('click', function (event) {
+        
+        var $todo = $(this).parents('.media').children('.media-body').children().text();
+
+
+        if ($todo !== ''){
+            toDoList.unshift({
+                time: $(this).parents('.media').children('.media-left').children().text(),
+                todo: $todo
+            });
+        }
+        
+
+        renderTodos(toDoList);
         localStorage.setItem('todolist', JSON.stringify(toDoList));
     });
 
 
+    function renderTodos(toDoList) {
+        // Empties out the html
+        $('.media-body .content').val('');
 
-
-
-
-
-   /* // title
-    clickAndOutFocusText(mediaBody, '.title', "<input>", 'title col-12', 'input', "title mt-2 col-12");
-
-
-    // content
-    clickAndOutFocusText(mediaBody, '.content', '<textarea>', 'content col-12', 'textarea', 'content col-12');*/
-
-
-    /**
-     * className2 must be the same to selector1's classname or more than that
-     * @param {String}$parent
-     * @param {String}selector1
-     * @param {String}creatTag
-     * @param {String}className1
-     * @param {String}selector2
-     * @param {String}className2
-     */
-    function clickAndOutFocusText($parent, selector1, creatTag, className1, selector2, className2) {
-        $parent.on('click', selector1, function (event) {
-            event.preventDefault();
-            // get current text of p element
-            var text = $(this).text().trim();
-
-            // replace p element with a new input
-            var textInput = $(creatTag)
-                .addClass(className1)
-                .val(text);
-            $(this).replaceWith(textInput);
-
-            // auto focus new element
-            textInput.trigger("focus");
-        });
-
-        // editable field was un-focused
-        $parent.on("blur", selector2, function () {
-            // get current value of textarea
-            var text = $(this).val();
-
-            $(this).text = text;
-
-            var contentP = $("<p>")
-                .addClass(className2)
-                .text(text);
-
-            $(this).replaceWith(contentP);
-        });
-    }
-
-    renderTodos(toDoList);
-
-    function renderTodos(todolist) {
-
+        if (
+            toDoList.time === $('')
+        ){
+            
+        }
     }
 });
