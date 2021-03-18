@@ -4,77 +4,97 @@ $(function () {
 
     // 2. save toDoList to localStorage
     var toDoList = JSON.parse(localStorage.getItem('todolist')) || [];
+    var mediaBody = $('.media-body');
 
+
+
+    mediaBody.each(function(){
+        var $time = $(this).parents('.media').children('.media-left').children().text();
+        // console.log($time);
+        var foundEl = toDoList.find(function(el){
+            if (el.time === $time){
+                return el;
+            }
+        });
+
+        if (foundEl && foundEl.todo) {
+            $(this).children().text(foundEl.todo);
+        }
+        
+
+        var now = $time.split(':')[0];
+        console.log(now);
+    });
 
     // click and change content
-    var mediaBody = $('.media-body');
-    
     mediaBody.on('click', '.content', function (event) {
         event.preventDefault();
 
         var text = $(this).text().trim();
+        var $time = $(this).data('time');
+        // console.log($time);
 
         // replace p element with a new input
         var textInput = $('<textarea>')
             .addClass('content')
-            .val(text);
+            .val(text).data('time', $time);
         $(this).replaceWith(textInput);
-        
 
+        
+        
         // auto focus new element
         textInput.trigger("focus");
-
+        
     });
-
-    mediaBody.on("blur", 'textarea', function () {
+    
+    mediaBody.on("blur", 'textarea', function (ev) {
+        ev.preventDefault();
         // get current value of textarea
         var text = $(this).val();
-
+        var $time = $(this).data('time');
+        
+        // console.log($time);
         $(this).text = text;
 
         var contentP = $("<p>")
             .addClass('p-0 m-1 content')
-            .text(text);
+            .text(text).data('time', $time);
 
         $(this).replaceWith(contentP);
-        // console.log(contentP.text());
-        // console.log($(this).parents('.media'));
-        updateToDo($(this).text(), contentP.text());
     });
 
-    var updateToDo = function($time, $todo) {
-        var tempArr = [];
-
-        tempArr.push({
-            time: $time,
-            todo: $todo
-        });
-
-        console.log(tempArr);
-
-        saveToDos();
-    };
-    
 
     $('.save-icon').on('click', function () {
 
         var $todo = $(this).parents('.media').children('.media-body').children().text();
+        var $time = $(this).parents('.media').children('.media-body').children().data('time');
 
 
         if ($todo !== ''){
-            toDoList.unshift({
-                time: $(this).parents('.media').children('.media-left').children().text(),
+            toDoList.push({
+                time: $time,
                 todo: $todo
             });
         }
 
-        saveToDos();
+        var filterToDoList = toDoList.filter(function (el) {
+            if (el.time !== $time){
+                return el;
+            }
+        });
+
+
+        console.log(filterToDoList);
+        saveToDos(toDoList);
+        // saveToDos(toDoList);
+
     });
 
-    function saveToDos() {
+    function saveToDos(toDoList) {
         localStorage.setItem('todolist', JSON.stringify(toDoList));
     }
 
+    
 
     function renderTodos(toDoList) {
         // Empties out the html
