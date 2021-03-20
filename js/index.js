@@ -6,8 +6,6 @@ $(function () {
     var toDoList = JSON.parse(localStorage.getItem('todolist')) || [];
     var mediaBody = $('.media-body');
 
-
-
     mediaBody.each(function(){
         var $time = $(this).parents('.media').children('.media-left').children().text();
         // console.log($time);
@@ -23,7 +21,21 @@ $(function () {
         
 
         var now = $time.split(':')[0];
-        console.log(now);
+        if (now < 9 && now > 0){
+            now = parseInt(now) + 12;
+        }else {
+           now = parseInt(now);
+        }
+        // console.log(now);
+        var realHour = parseInt(moment().format('HH'));
+        if (now === realHour){
+            $(this).addClass('present');
+        }else if(now < realHour){
+            $(this).addClass('past');
+        }else {
+            $(this).addClass('future');
+        }
+
     });
 
     // click and change content
@@ -61,6 +73,7 @@ $(function () {
             .text(text).data('time', $time);
 
         $(this).replaceWith(contentP);
+
     });
 
 
@@ -78,16 +91,16 @@ $(function () {
         }
 
         var filterToDoList = toDoList.filter(function (el) {
-            if (el.time !== $time){
+            if (el.time == $time){
                 return el;
+                // el.todo = $todo;
+                // console.log();
             }
         });
-
 
         console.log(filterToDoList);
         saveToDos(toDoList);
         // saveToDos(toDoList);
-
     });
 
     function saveToDos(toDoList) {
