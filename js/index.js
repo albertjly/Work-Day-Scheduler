@@ -82,25 +82,22 @@ $(function () {
         var $todo = $(this).parents('.media').children('.media-body').children().text();
         var $time = $(this).parents('.media').children('.media-body').children().data('time');
 
-
         if ($todo !== ''){
-            toDoList.push({
+            toDoList.unshift({
                 time: $time,
                 todo: $todo
             });
         }
 
-        var filterToDoList = toDoList.filter(function (el) {
-            if (el.time == $time){
+       /* var filterToDoList = toDoList.filter(function (el) {
+            if (el.time !== $time) {
                 return el;
-                // el.todo = $todo;
-                // console.log();
             }
         });
 
-        console.log(filterToDoList);
+        */
         saveToDos(toDoList);
-        // saveToDos(toDoList);
+
     });
 
     function saveToDos(toDoList) {
