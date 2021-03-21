@@ -82,12 +82,24 @@ $(function () {
         var $todo = $(this).parents('.media').children('.media-body').children().text();
         var $time = $(this).parents('.media').children('.media-body').children().data('time');
 
+        function checkArr($time){
+            for (var i = 0; i < toDoList.length; i++){
+                if (toDoList[i].time === $time){
+                    toDoList.splice(i, 1);
+                } 
+            }
+        }
+
+        checkArr($time);
+
         if ($todo !== ''){
             toDoList.unshift({
                 time: $time,
                 todo: $todo
             });
         }
+
+        
 
        /* var filterToDoList = toDoList.filter(function (el) {
             if (el.time !== $time) {
